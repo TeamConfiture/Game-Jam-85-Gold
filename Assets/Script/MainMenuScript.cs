@@ -18,12 +18,6 @@ public class MainMenuScript : MonoBehaviour
         MainMenu.SetActive(false);
     }
 
-    public void Rules2Button()
-    {
-        CreditsMenu.SetActive(false);
-        MainMenu.SetActive(false);
-        Rules1Menu.SetActive(false);
-    }
 
     public void CreditsButton() {
         CreditsMenu.SetActive(true);
