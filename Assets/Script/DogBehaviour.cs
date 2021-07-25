@@ -17,6 +17,8 @@ public class DogBehaviour : MonoBehaviour
     public Tilemap tilemap;
 
     public static int score;
+    private int gold, lead;
+    private bool foundPhilosophersStone;
 
 
     // Start is called before the first frame update
@@ -29,6 +31,9 @@ public class DogBehaviour : MonoBehaviour
         anim = gameObject.transform.Find("Dog_sit_SW").gameObject;
         anim.SetActive(true);
         score = 0;
+        gold = 0;
+        lead = 0;
+        foundPhilosophersStone = false;
     }
 
     void ChangeAnim(string AnimName)
@@ -106,6 +111,8 @@ public class DogBehaviour : MonoBehaviour
             }
             else if (Input.GetMouseButtonDown(1))
             {
+                waitEndAnim = 0.5f;
+
                 Vector3Int digHere = tilemap.WorldToCell(position);
                 //digHere.x += 1;
                 digHere.y += 1;
@@ -146,12 +153,29 @@ public class DogBehaviour : MonoBehaviour
                 {
                     if (t.name.Contains("Or"))
                     {
-                        score++;
-                        Debug.Log("Score : " + score);
+                        Debug.Log("Gold");
+                        gold++;
+                    } else if (t.name.Contains("Os"))
+                    {
+                        Debug.Log("Bone");
+                        ChangeAnim("Dog_game_L");
+                        waitEndAnim = 5;
+                    } else if (t.name.Contains("Plomb"))
+                    {
+                        Debug.Log("Lead");
+                        lead++;
+                    } else if (t.name.Contains("Philo"))
+                    {
+                        Debug.Log("AMENO");
+                        foundPhilosophersStone = true;
                     }
+                    score = gold;
+                    if (foundPhilosophersStone)
+                    {
+                        score += lead;
+                    }
+                    tilemap.SetTile(digHere, null);
                 }
-                tilemap.SetTile(digHere, null);
-                waitEndAnim = 0.5f;
                 isStopped = false;
             } else
             {
