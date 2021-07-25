@@ -23,6 +23,7 @@ public class DogBehaviour : MonoBehaviour
     public AudioSource goldSFX;
     public AudioSource philoSFX;
     public AudioSource boneSFX;
+    public AudioSource leadSFX;
 
     // Start is called before the first frame update
     void Start()
@@ -170,6 +171,7 @@ public class DogBehaviour : MonoBehaviour
                     {
                         Debug.Log("Lead");
                         lead++;
+                        leadSFX.Play();
                     } else if (t.name.Contains("Philo"))
                     {
                         Debug.Log("AMENO");
