@@ -20,7 +20,7 @@ public class MainMenuScript : MonoBehaviour
     public void RulesButton()
     {
         ruleStep = 1;
-        RulesImage.sprite = Resources.Load<Sprite>("Rules" + ruleStep);
+        RulesImage.sprite = Resources.Load<Sprite>("Rules/Rules" + ruleStep);
         // RulesMenu.Find("NextButton").SetActive(true);
         // RulesMenu.Find("PlayButton").SetActive(false);
         RulesMenu.SetActive(true);
