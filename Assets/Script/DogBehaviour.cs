@@ -16,6 +16,8 @@ public class DogBehaviour : MonoBehaviour
 
     public Tilemap tilemap;
 
+    public static int score;
+
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +28,7 @@ public class DogBehaviour : MonoBehaviour
         target = position;
         anim = gameObject.transform.Find("Dog_sit_SW").gameObject;
         anim.SetActive(true);
-
+        score = 0;
     }
 
     void ChangeAnim(string AnimName)
@@ -59,7 +61,7 @@ public class DogBehaviour : MonoBehaviour
                     target.y -= 0.4f;
                     direction = 0;
                     ChangeAnim("Dog_walk_SW");
-                    Debug.Log("SW");
+                    //Debug.Log("SW");
                 }
                 else if (x > position.x && y < position.y) // SE
                 {
@@ -67,7 +69,7 @@ public class DogBehaviour : MonoBehaviour
                     target.y -= 0.4f;
                     direction = 1;
                     ChangeAnim("Dog_walk_SE");
-                    Debug.Log("SE");
+                    //Debug.Log("SE");
                 }
                 else if (x < position.x && y > position.y) // NW
                 {
@@ -75,7 +77,7 @@ public class DogBehaviour : MonoBehaviour
                     target.y += 0.4f;
                     direction = 2;
                     ChangeAnim("Dog_walk_NW");
-                    Debug.Log("NW");
+                    //Debug.Log("NW");
                 }
                 else if (x > position.x && y > position.y) // NE
                 {
@@ -83,9 +85,9 @@ public class DogBehaviour : MonoBehaviour
                     target.y += 0.4f;
                     direction = 3;
                     ChangeAnim("Dog_walk_NE");
-                    Debug.Log("NE");
+                    //Debug.Log("NE");
                 }
-                /*Vector3Int nextCell = tilemap.WorldToCell(target);
+                /*Vector3Int nextCell = tilemap.WorldToCell(target); TODO
                 nextCell.y += 1;
                 nextCell.z = 2;
                 while (!tilemap.HasTile(nextCell))
@@ -108,27 +110,27 @@ public class DogBehaviour : MonoBehaviour
                 //digHere.x += 1;
                 digHere.y += 1;
                 digHere.z = 2;
-                Debug.Log(position);
+                //Debug.Log(position);
                 switch (direction)
                 {
                     case 0:
                         ChangeAnim("Dog_dig_SW");
                         digHere.x--;
-                        Debug.Log(digHere);
+                        //Debug.Log(digHere);
                         break;
                     case 1:
                         digHere.y--;
                         ChangeAnim("Dog_dig_SE");
-                        Debug.Log(digHere);
+                        //Debug.Log(digHere);
                         break;
                     case 2:
                         ChangeAnim("Dog_dig_NW");
-                        Debug.Log(digHere);
+                        //Debug.Log(digHere);
                         digHere.y++;
                         break;
                     case 3:
                         ChangeAnim("Dog_dig_NE");
-                        Debug.Log(digHere);
+                        //Debug.Log(digHere);
                         digHere.x++;
                         break;
                     default:
@@ -138,6 +140,15 @@ public class DogBehaviour : MonoBehaviour
                 while (!tilemap.HasTile(digHere) && digHere.z > -4)
                 {
                     digHere.z--;
+                }
+                TileBase t = tilemap.GetTile(digHere);
+                if (t != null)
+                {
+                    if (t.name.Contains("Or"))
+                    {
+                        score++;
+                        Debug.Log("Score : " + score);
+                    }
                 }
                 tilemap.SetTile(digHere, null);
                 waitEndAnim = 0.5f;
