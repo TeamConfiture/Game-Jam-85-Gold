@@ -17,8 +17,8 @@ public class DogBehaviour : MonoBehaviour
     public Tilemap tilemap;
 
     public static int score;
-    private int gold, lead;
-    private bool foundPhilosophersStone;
+    public static int gold, lead;
+    public static bool foundPhilosophersStone;
     public AudioSource digSFX;
     public AudioSource goldSFX;
     public AudioSource philoSFX;
