@@ -47,7 +47,7 @@ public class MainMenuScript : MonoBehaviour
         ruleStep += 1;
         loadRules();
         // Last step
-        if (ruleStep >= 4) {
+        if (ruleStep >= 5) {
             RulesMenu.transform.Find("NextButton").gameObject.SetActive(false);
             RulesMenu.transform.Find("PlayButton").gameObject.SetActive(true);
         }
