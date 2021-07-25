@@ -14,9 +14,12 @@ public class ScoreScript : MonoBehaviour
         scoreText.text = "Score: " + score + "\nBest: " + bestScore;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void SwitchScene(string scene) {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
     }
+
+    public void QuitButton() {
+        Application.Quit();
+    }
+
 }
