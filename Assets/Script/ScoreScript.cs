@@ -8,8 +8,17 @@ public class ScoreScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int score = 10; //TODO
-        int bestScore = 100; //TODO
+        // Get scores
+        int bestScore = PlayerPrefs.GetInt("bestScore");
+        int score = DogBehaviour.score;
+        // New best score?
+        if (score > bestScore) {
+            // Replace and save
+            bestScore = score;
+            PlayerPrefs.SetInt("bestScore", bestScore);
+            PlayerPrefs.Save();
+        }
+        // Print values!
         Text scoreText = GameObject.Find("Score").GetComponent<Text>();
         scoreText.text = "Score: " + score + "\nBest: " + bestScore;
     }
