@@ -19,7 +19,10 @@ public class DogBehaviour : MonoBehaviour
     public static int score;
     private int gold, lead;
     private bool foundPhilosophersStone;
-
+    public AudioSource digSFX;
+    public AudioSource goldSFX;
+    public AudioSource philoSFX;
+    public AudioSource boneSFX;
 
     // Start is called before the first frame update
     void Start()
@@ -113,6 +116,7 @@ public class DogBehaviour : MonoBehaviour
             {
                 waitEndAnim = 0.5f;
 
+                digSFX.Play();
                 Vector3Int digHere = tilemap.WorldToCell(position);
                 //digHere.x += 1;
                 digHere.y += 1;
@@ -155,11 +159,13 @@ public class DogBehaviour : MonoBehaviour
                     {
                         Debug.Log("Gold");
                         gold++;
+                        goldSFX.Play();
                     } else if (t.name.Contains("Os"))
                     {
                         Debug.Log("Bone");
                         ChangeAnim("Dog_game_L");
                         waitEndAnim = 5;
+                        boneSFX.Play();
                     } else if (t.name.Contains("Plomb"))
                     {
                         Debug.Log("Lead");
@@ -168,6 +174,7 @@ public class DogBehaviour : MonoBehaviour
                     {
                         Debug.Log("AMENO");
                         foundPhilosophersStone = true;
+                        philoSFX.Play();
                     }
                     score = gold;
                     if (foundPhilosophersStone)
