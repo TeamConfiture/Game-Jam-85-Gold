@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class TimerScript : MonoBehaviour
 {
-    private float timer = 60.0f;
+    private float timer = 61.0f;
     public Text timeText;
     public string scene;
 
@@ -18,7 +18,7 @@ public class TimerScript : MonoBehaviour
         {
             timeText.color = new Color(1, 0, 0, 1);
         }
-        if (timer <= 0)
+        if (timer <= 1)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
         }

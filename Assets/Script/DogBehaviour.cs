@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+
 
 public class DogBehaviour : MonoBehaviour
 {
@@ -12,15 +14,17 @@ public class DogBehaviour : MonoBehaviour
     private GameObject anim;
     private bool isStopped = true;
 
+    public Tilemap tilemap;
+
 
     // Start is called before the first frame update
     void Start()
     {
         position.x = transform.position.x;
         position.y = transform.position.y;
-        position.z = 1;
+        position.z = 0.45f;
         target = position;
-        anim = gameObject.transform.Find("Dog_sit_SE").gameObject;
+        anim = gameObject.transform.Find("Dog_sit_SW").gameObject;
         anim.SetActive(true);
 
     }
@@ -46,6 +50,9 @@ public class DogBehaviour : MonoBehaviour
             {
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 float x = worldPosition.x, y = worldPosition.y;
+                
+                
+
                 if (x < position.x && y < position.y) // SW
                 {
                     target.x -= 0.8f;
@@ -78,11 +85,61 @@ public class DogBehaviour : MonoBehaviour
                     ChangeAnim("Dog_walk_NE");
                     Debug.Log("NE");
                 }
+                /*Vector3Int nextCell = tilemap.WorldToCell(target);
+                nextCell.y += 1;
+                nextCell.z = 2;
+                while (!tilemap.HasTile(nextCell))
+                {
+                    nextCell.z--;
+                }
+                Debug.Log("nextcell z " + nextCell.z);
+                int currentz = -(int)((0.45f - position.z) / 0.1f);
+                Debug.Log("currentz " + currentz);
+                Debug.Log("y diff " + 0.1f * (currentz - nextCell.z));
+                target.y -= 0.1f * (currentz - nextCell.z);
+                target.z = 0.45f + 0.1f * nextCell.z;
+                Debug.Log("target z " + target.z);    */
                 waitEndAnim = 0.5f;
                 isStopped = false;
             }
             else if (Input.GetMouseButtonDown(1))
             {
+                Vector3Int digHere = tilemap.WorldToCell(position);
+                //digHere.x += 1;
+                digHere.y += 1;
+                digHere.z = 2;
+                Debug.Log(position);
+                switch (direction)
+                {
+                    case 0:
+                        ChangeAnim("Dog_dig_SW");
+                        digHere.x--;
+                        Debug.Log(digHere);
+                        break;
+                    case 1:
+                        digHere.y--;
+                        ChangeAnim("Dog_dig_SE");
+                        Debug.Log(digHere);
+                        break;
+                    case 2:
+                        ChangeAnim("Dog_dig_NW");
+                        Debug.Log(digHere);
+                        digHere.y++;
+                        break;
+                    case 3:
+                        ChangeAnim("Dog_dig_NE");
+                        Debug.Log(digHere);
+                        digHere.x++;
+                        break;
+                    default:
+                        Debug.Log("wtfff");
+                        return;
+                }
+                while (!tilemap.HasTile(digHere) && digHere.z > -4)
+                {
+                    digHere.z--;
+                }
+                tilemap.SetTile(digHere, null);
                 waitEndAnim = 0.5f;
                 isStopped = false;
             } else
