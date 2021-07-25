@@ -59,7 +59,7 @@ public class DogBehaviour : MonoBehaviour
             if (Input.GetMouseButtonDown(0)) // on left click
             {
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                float x = worldPosition.x, y = worldPosition.y;
+                float x = worldPosition.x, y = worldPosition.y + 0.3f;
                 
                 
 
